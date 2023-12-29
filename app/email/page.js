@@ -96,7 +96,7 @@ export default function EmailGenerator() {
                 <span className="loading loading-spinner"></span>
                 loading
             </button>}
-            {prompts == null ? '' : <div className='response'>{JSON.stringify(prompts?.email)}</div>}
+            {prompts == null || loading == true ? '' : <div className='response'>{String(prompts?.email)}</div>}
         </div>
     )
 }

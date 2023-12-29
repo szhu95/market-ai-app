@@ -84,7 +84,7 @@ export default function SocialMediaGenerator() {
                 <span className="loading loading-spinner"></span>
                 loading
             </button>}
-            {posts == null ? '' : <div className="response">{JSON.stringify(posts?.post)}</div>}
+            {posts == null || loading == true  ? '' : <div className="response">{String(posts?.post)}</div>}
         </div>
     )
 }
