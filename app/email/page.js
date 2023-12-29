@@ -13,6 +13,9 @@ export default function EmailGenerator() {
     const [metric, setMetric] = useState('');
 
     async function addPrompt(name, role, company, solution, metric) {
+        if (name == '' || role == '' || company == '' || solution == '' || metric == '') {
+            return;
+        }
         setPrompts('');
         setLoading(true);
         const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/prompts`, {
@@ -32,6 +35,7 @@ export default function EmailGenerator() {
             const json = await res.json();
             setLoading(false);
             setPrompts(json);
+
             setName('');
             setRole('');
             setCompany('');
@@ -73,18 +77,19 @@ export default function EmailGenerator() {
 
     return (
         <div>
-            <div>Email Generation Tool</div>
+            <div className="header">Email Generation Tool</div>
             <div>
-                <p>I would like to draft an email to</p>
-                <input type="text" placeholder="Enter name" value={name} className="input input-bordered w-full max-w-xs" onChange={(e) => handleNameChange(e)} />
-                <p>the</p>
-                <input type="text" placeholder="Enter role" value={role} className="input input-bordered w-full max-w-xs" onChange={(e) => handleRoleChange(e)} />
-                <p>at</p>
-                <input type="text" placeholder="Enter company" value={company} className="input input-bordered w-full max-w-xs" onChange={(e) => handleCompanyChange(e)} />
-                <p>regarding using</p>
-                <input type="text" placeholder="Enter solution" value={solution} className="input input-bordered w-full max-w-xs" onChange={(e) => handleSolutionChange(e)} />
-                <p>to</p>
-                <input type="text" placeholder="Enter metric" value={metric} className="input input-bordered w-full max-w-xs" onChange={(e) => handleMetricChange(e)} />
+                <p>I would like to draft an email to
+                    <input type="text" placeholder="Enter name" value={name} className="input input-bordered w-full max-w-xs" onChange={(e) => handleNameChange(e)} />
+                    the
+                    <input type="text" placeholder="Enter role" value={role} className="input input-bordered w-full max-w-xs" onChange={(e) => handleRoleChange(e)} />
+                    at
+                    <input type="text" placeholder="Enter company" value={company} className="input input-bordered w-full max-w-xs" onChange={(e) => handleCompanyChange(e)} />
+                    regarding using
+                    <input type="text" placeholder="Enter solution" value={solution} className="input input-bordered w-full max-w-xs" onChange={(e) => handleSolutionChange(e)} />
+                    to
+                    <input type="text" placeholder="Enter metric" value={metric} className="input input-bordered w-full max-w-xs" onChange={(e) => handleMetricChange(e)} />
+                </p>
             </div>
             {loading == false ? <button onClick={() => addPrompt(name, role, company, solution, metric)} className="btn">Submit Prompt</button> : <button className="btn">
                 <span className="loading loading-spinner"></span>

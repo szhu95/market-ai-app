@@ -12,6 +12,9 @@ export default function SocialMediaGenerator() {
     const [metric, setMetric] = useState('');
 
     async function addPost(name, company, achievement, metric) {
+        if(name == '' || company == '' || achievement == '' || metric == '') {
+            return ;
+        }
         setPosts('');
         setLoading(true);
         const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/socials`, {
@@ -64,16 +67,17 @@ export default function SocialMediaGenerator() {
 
     return (
         <div>
-            <div>Kudos Post Generation Tool</div>
+            <div className="header">Kudos Post Generation Tool</div>
             <div>
-                <p>I would like to draft a social media post to highlight</p>
-                <input type="text" placeholder="Enter name" value={name} className="input input-bordered w-full max-w-xs" onChange={(e) => handleNameChange(e)} />
-                <p>at</p>
-                <input type="text" placeholder="Enter company" value={company} className="input input-bordered w-full max-w-xs" onChange={(e) => handleCompanyChange(e)} />
-                <p>for accomplishing</p>
-                <input type="text" placeholder="Enter achievement" value={achievement} className="input input-bordered w-full max-w-xs" onChange={(e) => handleAchievementChange(e)} />
-                <p>by</p>
-                <input type="text" placeholder="Enter metric" value={metric} className="input input-bordered w-full max-w-xs" onChange={(e) => handleMetricChange(e)} />
+                <p>I would like to draft a social media post to highlight 
+                    <input type="text" placeholder="Enter name" value={name} className="input input-bordered w-full max-w-xs" onChange={(e) => handleNameChange(e)} />
+                    at
+                    <input type="text" placeholder="Enter company" value={company} className="input input-bordered w-full max-w-xs" onChange={(e) => handleCompanyChange(e)} />
+                    for accomplishing
+                    <input type="text" placeholder="Enter achievement" value={achievement} className="input input-bordered w-full max-w-xs" onChange={(e) => handleAchievementChange(e)} />
+                    by
+                    <input type="text" placeholder="Enter metric" value={metric} className="input input-bordered w-full max-w-xs" onChange={(e) => handleMetricChange(e)} />
+                </p>
             </div>
             {loading == false ? <button onClick={() => addPost(name, company, achievement, metric)} className="btn">Submit Prompt</button> : <button className="btn">
                 <span className="loading loading-spinner"></span>
