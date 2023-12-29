@@ -5,13 +5,15 @@ import { useState } from 'react';
 
 export default function SocialMediaGenerator() {
     const [posts, setPosts] = useState(null);
-    const [mainInput, setMainInput] = useState('');
+    const [loading, setLoading] = useState(false);
     const [name, setName] = useState('');
     const [company, setCompany] = useState('');
     const [achievement, setAchievement] = useState('');
     const [metric, setMetric] = useState('');
 
     async function addPost(name, company, achievement, metric) {
+        setPosts('');
+        setLoading(true);
         const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/socials`, {
             method: 'POST',
             body: JSON.stringify({
@@ -26,42 +28,38 @@ export default function SocialMediaGenerator() {
         })
         if (res.ok) {
             const json = await res.json();
-            const copy = [...posts, json]
-            setPosts(copy)
+            // const copy = [...posts, json]
+            setLoading(false);
+            setPosts(json)
+            setName('');
+            setCompany('');
+            setAchievement('');
+            setMetric('');
         }
     }
 
     function handleNameChange(e) {
-        
+
         setName(e.target.value)
         console.log(e.target.value);
     }
 
     function handleCompanyChange(e) {
-        
+
         setCompany(e.target.value)
         console.log(e.target.value);
     }
 
     function handleAchievementChange(e) {
-        
+
         setAchievement(e.target.value)
         console.log(e.target.value);
     }
 
     function handleMetricChange(e) {
-        
+
         setMetric(e.target.value)
         console.log(e.target.value);
-    }
-
-    function handleKeyDown(e) {
-        if (e.key === 'Enter') {
-            if (mainInput.length > 0) {
-                addPrompt(mainInput);
-                setMainInput('');
-            }
-        }
     }
 
     return (
@@ -77,7 +75,11 @@ export default function SocialMediaGenerator() {
                 <p>by</p>
                 <input type="text" placeholder="Enter metric" value={metric} className="input input-bordered w-full max-w-xs" onChange={(e) => handleMetricChange(e)} />
             </div>
-            <button onClick={() => addPost(name, company, achievement, metric)} className="btn">Submit Prompt</button>
+            {loading == false ? <button onClick={() => addPost(name, company, achievement, metric)} className="btn">Submit Prompt</button> : <button className="btn">
+                <span className="loading loading-spinner"></span>
+                loading
+            </button>}
+            {posts == null ? '' : <div>{JSON.stringify(posts?.post)}</div>}
         </div>
     )
 }
