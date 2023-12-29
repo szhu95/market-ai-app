@@ -6,7 +6,7 @@ Prerequisites:
 
 Start API service and get database running
 
-Then, run the development server:
+Then, create a .env file in the root directory and add the line `NEXT_PUBLIC_API_URL=http://localhost:8000` run the development server:
 
 ```bash
 npm run dev
