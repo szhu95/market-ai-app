@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 Prerequisites: 
 
-Start API service and get database running
+Start [API service and get database running](https://github.com/szhu95/market-ai-service)
 
 Then, create a .env file in the root directory and add the line `NEXT_PUBLIC_API_URL=http://localhost:8000` 
 
