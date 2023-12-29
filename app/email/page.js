@@ -77,8 +77,9 @@ export default function EmailGenerator() {
 
     return (
         <div>
-            <div className="header">Email Generation Tool</div>
+            <div className="header"><b>Email Generation Tool</b></div>
             <div>
+                <p><b>Prompt: </b></p>
                 <p>I would like to draft an email to
                     <input type="text" placeholder="Enter name" value={name} className="input input-bordered w-full max-w-xs" onChange={(e) => handleNameChange(e)} />
                     the
@@ -95,7 +96,7 @@ export default function EmailGenerator() {
                 <span className="loading loading-spinner"></span>
                 loading
             </button>}
-            {prompts == null ? '' : <div>{JSON.stringify(prompts?.email)}</div>}
+            {prompts == null ? '' : <div className='response'>{JSON.stringify(prompts?.email)}</div>}
         </div>
     )
 }

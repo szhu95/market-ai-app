@@ -12,8 +12,8 @@ export default function SocialMediaGenerator() {
     const [metric, setMetric] = useState('');
 
     async function addPost(name, company, achievement, metric) {
-        if(name == '' || company == '' || achievement == '' || metric == '') {
-            return ;
+        if (name == '' || company == '' || achievement == '' || metric == '') {
+            return;
         }
         setPosts('');
         setLoading(true);
@@ -67,9 +67,10 @@ export default function SocialMediaGenerator() {
 
     return (
         <div>
-            <div className="header">Kudos Post Generation Tool</div>
+            <div className="header"><b>Kudos Post Generation Tool</b></div>
             <div>
-                <p>I would like to draft a social media post to highlight 
+                <p><b>Prompt: </b></p>
+                <p>I would like to draft a social media post to highlight
                     <input type="text" placeholder="Enter name" value={name} className="input input-bordered w-full max-w-xs" onChange={(e) => handleNameChange(e)} />
                     at
                     <input type="text" placeholder="Enter company" value={company} className="input input-bordered w-full max-w-xs" onChange={(e) => handleCompanyChange(e)} />
@@ -83,7 +84,7 @@ export default function SocialMediaGenerator() {
                 <span className="loading loading-spinner"></span>
                 loading
             </button>}
-            {posts == null ? '' : <div>{JSON.stringify(posts?.post)}</div>}
+            {posts == null ? '' : <div className="response">{JSON.stringify(posts?.post)}</div>}
         </div>
     )
 }
